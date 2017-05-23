@@ -1,5 +1,6 @@
 class Owner < ActiveRecord::Base
-   	has_many :pets, dependent: :destroy
+   	has_many :pets
+    has_many :appointments, through: :pets
 
 	before_save :normalize_phone_number
 

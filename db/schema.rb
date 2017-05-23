@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502010023) do
+ActiveRecord::Schema.define(version: 20170523181434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "owners", force: :cascade do |t|
     t.string "first_name"
@@ -30,9 +35,5 @@ ActiveRecord::Schema.define(version: 20160502010023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-  
-  add_index "pets", ["owner_id"], name: "index_pets_on_owner_id", using: :btree
-
-  add_foreign_key "pets", "owners"
 
 end

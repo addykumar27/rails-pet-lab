@@ -1,5 +1,8 @@
 class Pet < ActiveRecord::Base
   belongs_to :owner
+  has_many :appointment
+
+  validate :date_of_birth_cannot_be_in_the_future
 
   validates :name,
     presence: true,
