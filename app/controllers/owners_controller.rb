@@ -9,8 +9,13 @@ class OwnersController < ApplicationController
   end
 
   def create
-    owner = Owner.create(owner_params)
-    redirect_to owner_path(owner)
+    owner = Owner.new(owner_params)
+    if owner.save
+      redirect_to_owner_path(owner)
+    else
+      flash[:error] = owner.errors.full_messages.join(", ")
+      redirect_to_owner_path
+    end
   end
 
   def show
@@ -19,15 +24,25 @@ class OwnersController < ApplicationController
   end
 
   def edit
-    # stretch
+    @owner = Owner.find_by(id: owner_id)
   end
 
   def update
-    # stretch
+    owner_id = params [:id]
+    @owner = Owner.find_by(id: owner_id)
+    if owner.update(owner_params)
+      redirect_to_owner_path(owner)
+    else
+      flash[:error]= owner.errors.full_messages.join(", ")
+      redirect_to_owner_path(owner)
+    end
   end
 
   def destroy
-    # stretch
+    owner_id = params[:id]
+    owner = Owner.find_by(id: owner_id)
+    owner.destroy
+    redirect_to_owner_path
   end
 
   # TODO: add custom appointments action for convenience
